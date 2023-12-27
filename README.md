@@ -1,38 +1,36 @@
 
 # Chef-Book
-
+![image](https://github.com/kirti281003/ChefBook/assets/97171261/b82524e0-7e10-4e99-b853-f839ab95cfbd)
 
 This a a recipe app made in ReactJS, the recipes are fetched from Edamam API. 
-Search of any ingredient and get top 10 items you can make with it
+Search for any ingredient and get the top 10 items you can make with it
+
+## Maintainers
+@i-am-SnehaChauhan and @Nitya-Pasrija 
+
+Please reach out to the maintainers if you get stuck or wish to report someone.
 
 ## Tech stack used
 * ReactJS
 
-## learn about APIs
-[ReactJS in one video](https://youtu.be/RGKi6LSPDLU)
-
-## Some screenshots
-
-
-
-![App Screenshot](https://drive.google.com/uc?export=view&id=17htOSK_ptwEbwvwe_LQtylr6CH3XLUXG)
+### APIs resource: [ReactJS in one video](https://youtu.be/RGKi6LSPDLU)
 
 ## CONTRIBUTING TO THIS PROJECT
 
 - Take a look at the Existing Issues of your project and find one that interests you or create your own Issues!
 - Tag the repository maintainers or issue creators to assign that issue to you.
 - Wait for the Issue to be assigned to you after which you can start working on it.
-- Fork the Repo and create a Branch for any Issue that you are working upon.
+- Fork the Repo and create a Branch for any Issue you are working on.
 - Create a Pull Request which will be promptly reviewed and suggestions would be added to improve it.
-- Once your PR is approved, you changes will be merged into the project. 
+- Once your PR is approved, your changes will be merged into the project. 
 - Add Screenshots to help us know what this Script is all about.
-- Repository specific contribution information is in the respective READMEs of each repo.
+- Repository-specific contribution information is in the respective READMEs of each repo.
 - Do not abuse and/or use bad language. Ensure you don't insult anyone. Be respectful and inclusive.
 - Please mention your full name on your GitHub handle to be eligible for prizes.
 
 
-You can take up any of the existing issues or create a new to to contribute any of your own projects!<br/> 
-Contribution period ends: 22 December 2022
+You can take up any of the existing issues or create a new one to contribute!<br/> 
+Contribution period ends: 28 January 2024
 
 
 ## How to get started?
