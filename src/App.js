@@ -3,7 +3,7 @@ import "./App.css";
 import { useState } from "react";
 import Recipe from "./Recipe";
 import Navbar from "./components/Navbar";
-import mainLogo from'./components/icon.png';
+import mainLogo from "./components/icon.png";
 
 function App() {
   const [visible, setVisible] = useState(3);
@@ -43,10 +43,9 @@ function App() {
     setQuery(search);
   };
 
-
   const [mode, setMode] = useState("light");
   const [myStyle, setStyle] = useState({
-    color: "black",
+    color: "rgb(242, 198, 140)",
   });
   const [cardStyle, setCard] = useState({
     display: "inline-block",
@@ -103,7 +102,14 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <img alt="" src={mainLogo} width="100" height="100" className="logo" text-align="center"/>
+      <img
+        alt=""
+        src={mainLogo}
+        width="100"
+        height="100"
+        className="logo"
+        text-align="center"
+      />
       <h1 className="heading" style={myStyle}>
         Tasty Tips
       </h1>
@@ -112,13 +118,13 @@ function App() {
           className="search-bar"
           type="text"
           value={search}
-          onChange={handleSearch} 
+          onChange={handleSearch}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-                setSearch(e.target.value);
-                // console.log("search: ", e.target.value)
+              setSearch(e.target.value);
+              // console.log("search: ", e.target.value)
             }
-        }}
+          }}
         ></input>
         <button className="search-btn" type="submit">
           Search
@@ -153,7 +159,6 @@ function App() {
           Load More Recipes
         </button>
       </div>
-      
     </div>
   );
 }
