@@ -6,7 +6,10 @@ This a a recipe app made in ReactJS, the recipes are fetched from Edamam API.
 Search for any ingredient and get the top 10 items you can make with it
 
 ## Maintainers
-@i-am-SnehaChauhan and @Nitya-Pasrija 
+[@i-am-SnehaChauhan](https://github.com/i-am-SnehaChauhan) and [@Nitya-Pasrija](https://github.com/Nitya-Pasrija)
+
+## Reviewers
+[@kirti281003](https://github.com/kirti281003)
 
 Please reach out to the maintainers if you get stuck or wish to report someone.
 
