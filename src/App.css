@@ -118,5 +118,16 @@ body {
     padding: 20px;
     margin-top: 50px;
 }
+.btn-hover{
+  border: 2px solid white;
+  border-radius: 5px;
+  color:white !important;
+  margin-right: 9px;
+}
+.btn-hover:hover {
+  background-color: white;
+  color: black !important; /* Change text color on hover if needed */
+}
+
 
 
