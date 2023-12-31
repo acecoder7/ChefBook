@@ -13,7 +13,7 @@ const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
 
   return (
-    <Nav.Link className="btn btn-black" onClick={() => loginWithRedirect()}>
+    <Nav.Link className="btn btn-black btn-hover" onClick={() => loginWithRedirect()}>
       Login
     </Nav.Link>
   );
@@ -89,9 +89,9 @@ export default function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#about">About us</Nav.Link>
-              <Nav.Link href="#contact">Contact us</Nav.Link>
+              <Nav.Link className="btn btn-black btn-hover" href="#home">Home</Nav.Link>
+              <Nav.Link className="btn btn-black btn-hover" href="#about">About us</Nav.Link>
+              <Nav.Link className="btn btn-black btn-hover" href="#contact">Contact us</Nav.Link>
             </Nav>
             <UserProfileDropdown />
           </Navbar.Collapse>
