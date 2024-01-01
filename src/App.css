@@ -118,6 +118,33 @@ body {
     padding: 20px;
     margin-top: 50px;
 }
+.scroll-up-btn {
+  position: fixed;
+  height: 45px;
+  width: 42px;
+  background: #4B3100;
+  right: 30px;
+  bottom: 10px;
+  text-align: center;
+  line-height: 45px;
+  color: #fff;
+  z-index: 9999;
+  font-size: 30px;
+  border-radius: 6px;
+  border-bottom-width: 2px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.scroll-up-btn.show {
+  bottom: 30px;
+  opacity: 1;
+  pointer-events: auto;
+}
+.scroll-up-btn:hover {
+  filter: brightness(90%);
+}
 .btn-hover{
   border: 2px solid white;
   border-radius: 5px;
@@ -128,6 +155,4 @@ body {
   background-color: white;
   color: black !important; /* Change text color on hover if needed */
 }
-
-
 
