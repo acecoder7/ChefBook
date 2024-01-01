@@ -5,17 +5,22 @@ import mainLogo from "../components/icon.png";
 import "../App.css";
 
 export default function Home() {
-    const [visible, setVisible] = useState(3);
+  const [visible, setVisible] = useState(3);
+  const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("bread");
+  const [mode, setMode] = useState("light");
 
   const showMoreItems = () => {
     setVisible((prevValue) => prevValue + 3);
   };
+
   const APP_ID = "d7811cd0";
   const APP_KEY = "3baec572c48af715772e8deac52d7572";
 
   const getRecipes = () => {
     fetch(
-      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+      `https://api.edamam.com/api/recipes/v2?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&type=public`
     )
       .then((response) => {
         return response.json();
@@ -26,10 +31,6 @@ export default function Home() {
       });
   };
 
-  const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("bread");
-
   useEffect(() => {
     getRecipes();
   }, [query]);
@@ -37,12 +38,12 @@ export default function Home() {
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
+
   const getSearch = (e) => {
     e.preventDefault();
     setQuery(search);
   };
 
-  const [mode, setMode] = useState("light");
   const [myStyle, setStyle] = useState({
     color: "rgb(242, 198, 140)",
   });
@@ -61,46 +62,19 @@ export default function Home() {
     
   })*/
   const toggleMode = () => {
-    if (mode === "light") {
-      setMode("dark");
-      document.querySelector(".App").style.backgroundImage =
-        "radial-gradient(black,black,black)";
+    const isLightMode = mode === "light";
+    setMode(isLightMode ? "dark" : "light");
 
-      setStyle({
-        color: "white",
-      });
-      setCard({
-        display: "inline-block",
-        width: 300,
-        marginLeft: 100,
-        marginTop: 5,
-        marginRight: 5,
-        backgroundColor: "black",
-      });
-    } else {
-      setMode("light");
-      document.querySelector(".App").style.backgroundImage =
-        "linear-gradient(to right, #aa8b56 0%, #f0ebce 100%)";
-
-      setStyle({
-        color: "black",
-      });
-      setCard({
-        display: "inline-block",
-        /* borderWidth:2,
-         borderStyle:"solid",*/
-        backgroundColor: "#4e6c50",
-        width: 300,
-        marginLeft: 100,
-        marginTop: 5,
-        marginRight: 5,
-      });
-    }
+    document.querySelector(".App").style.backgroundImage = isLightMode
+      ? "radial-gradient(black,black,black)"
+      : "linear-gradient(to right, #aa8b56 0%, #f0ebce 100%)";
     };
     
 
     return (
-        <>
+      <>
+        <div className="App">
+          <div className={`App ${mode === "light" ? "light-mode" : "dark-mode"}`}>
         <Navbar />
           <img
             alt=""
@@ -146,9 +120,16 @@ export default function Home() {
                 key={r.recipe.url}
                 title={r.recipe.label}
                 calories={r.recipe.calories}
-                img={r.recipe.image}
+                img={r.recipe.images.REGULAR.url}
                 url={r.recipe.url}
                 ingredients={r.recipe.ingredients}
+                diet={r.recipe.dietLabels}
+                health={r.recipe.healthLabels}
+                cuisineType={r.recipe.cuisineType}
+                mealType={r.recipe.mealType}
+                dishType={r.recipe.dishType}
+                time={r.recipe.totalTime}
+                tags={r.recipe.tags}
                 myStyle={myStyle}
                 cardStyle={cardStyle}
               />
@@ -159,6 +140,8 @@ export default function Home() {
               Load More Recipes
             </button>
             </div>
+          </div>
+        </div>
         </>
     )
 }
