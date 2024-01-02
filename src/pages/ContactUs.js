@@ -1,11 +1,24 @@
 import react from "react";
+import ContactUs from "../components/ContactUs";
+import Navbar from "../components/Navbar";
+import mainLogo from "../components/icon.png";
 
-const ContactUs = () => {
+
+const ContactUsP = () => {
     return (
         <>
-            <h1>Contact Us</h1>
+            <Navbar />
+            <img
+            alt=""
+            src={mainLogo}
+            width="100"
+            height="100"
+            className="logo"
+            text-align="center"
+          />
+            <ContactUs />
         </>
     )
 }
 
-export default ContactUs;
+export default ContactUsP;

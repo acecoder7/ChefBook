@@ -11,7 +11,7 @@
 }
 
 .dark-mode {
-  background-image: radial-gradient(black, black, black);
+  background-image: radial-gradient(black, rgb(9, 7, 43), rgb(3, 67, 67));
   /* Other dark mode styles */
 }
 
