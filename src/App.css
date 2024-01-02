@@ -4,6 +4,17 @@
   min-height: 100vh;
   background-image: linear-gradient(to right, #FFffff 0%, #B4CEFF 100%);
 }
+
+.light-mode {
+  background-image: linear-gradient(to right, #FFffff 0%, #B4CEFF 100%);
+  /* Other light mode styles */
+}
+
+.dark-mode {
+  background-image: radial-gradient(black, black, black);
+  /* Other dark mode styles */
+}
+
 .search-form {
   min-height: 10vh;
   display: flex;
@@ -11,6 +22,24 @@
   align-items: center;
   margin-bottom: 50px;
   transition: 1s;
+  position: relative;
+}
+
+.filter-btn {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.filter-btn:hover {
+  background-color: #45a049;
 }
 .heading {
   display: flex;
@@ -33,7 +62,7 @@
   outline: 5px solid #4B3100;
 }
 .search-form:hover {
-  transform: scale(1.1);
+  transform: scale(0.97);
 }
 .search-btn:hover {
   background: rgb(255, 238, 170);
@@ -67,7 +96,7 @@
 }
 
 .button-container:hover {
-  transform: scale(1.1);
+  transform: scale(0.97);
 }
 .card {
   transition: 0.3s;
@@ -153,6 +182,6 @@ body {
 }
 .btn-hover:hover {
   background-color: white;
-  color: black !important; /* Change text color on hover if needed */
+  color: black !important; 
 }
 

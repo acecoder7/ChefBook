@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Recipe from "../components/Recipe";
 import Navbar from "../components/Navbar";
 import mainLogo from "../components/icon.png";
+import FilterModal from "../components/FilterModal";
 import "../App.css";
 
 export default function Home() {
@@ -10,6 +11,8 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("bread");
   const [mode, setMode] = useState("light");
+  const [filterModalOpen, setFilterModalOpen] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState({});
 
   const showMoreItems = () => {
     setVisible((prevValue) => prevValue + 3);
@@ -19,21 +22,37 @@ export default function Home() {
   const APP_KEY = "3baec572c48af715772e8deac52d7572";
 
   const getRecipes = () => {
-    fetch(
-      `https://api.edamam.com/api/recipes/v2?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&type=public`
-    )
-      .then((response) => {
-        return response.json();
-      })
+    let apiUrl = `https://api.edamam.com/api/recipes/v2?app_id=${APP_ID}&app_key=${APP_KEY}&type=public&q=${query}`;
+
+    //console.log("selectedFilters: ", selectedFilters);
+    // Check if there are selected filters
+    if (Object.keys(selectedFilters).length > 0) {
+      const queryString = Object.entries(selectedFilters)
+        .map(([key, values]) => {
+          if (Array.isArray(values)) {
+            return values.map((value) => `${key}=${value}`).join("&");
+          } else {
+            return `${key}=${values}`;
+          }
+        })
+        .join("&");
+  
+      apiUrl = `${apiUrl}&${queryString}`;
+    }
+
+    //console.log("apiUrl: ", apiUrl);
+  
+    fetch(apiUrl)
+      .then((response) => response.json())
       .then((data) => {
         setRecipes(data.hits);
-        //console.log(data);
       });
   };
+  
 
   useEffect(() => {
     getRecipes();
-  }, [query]);
+  }, [query, selectedFilters]);
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -42,6 +61,7 @@ export default function Home() {
   const getSearch = (e) => {
     e.preventDefault();
     setQuery(search);
+    setSelectedFilters({});
   };
 
   const [myStyle, setStyle] = useState({
@@ -63,17 +83,30 @@ export default function Home() {
   })*/
   const toggleMode = () => {
     const isLightMode = mode === "light";
+
     setMode(isLightMode ? "dark" : "light");
 
     document.querySelector(".App").style.backgroundImage = isLightMode
       ? "radial-gradient(black,black,black)"
       : "linear-gradient(to right, #aa8b56 0%, #f0ebce 100%)";
-    };
+  };
+  
+  const openFilterModal = () => {
+    setFilterModalOpen(true);
+  };
+
+  const closeFilterModal = () => {
+    setFilterModalOpen(false);
+  };
+
+  const applyFilters = (filters) => {
+    setSelectedFilters(filters);
+    setFilterModalOpen(false);
+  };
     
 
     return (
       <>
-        <div className="App">
           <div className={`App ${mode === "light" ? "light-mode" : "dark-mode"}`}>
         <Navbar />
           <img
@@ -103,11 +136,16 @@ export default function Home() {
             <button className="search-btn" type="submit">
               Search
             </button>
-          </form>
+            <button className="filter-btn" onClick={openFilterModal}>
+               Filter
+            </button>
+            </form>
+            
+            <FilterModal isOpen={filterModalOpen} onClose={closeFilterModal} onFilterApply={applyFilters} />
 
           <div class="form-check form-switch">
             <input
-              class="form-check-input ms-5"
+              className="form-check-input ms-5"
               type="checkbox"
               role="switch"
               id="flexSwitchCheckDefault"
@@ -141,7 +179,6 @@ export default function Home() {
             </button>
             </div>
           </div>
-        </div>
         </>
     )
 }
