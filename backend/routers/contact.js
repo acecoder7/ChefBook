@@ -4,9 +4,9 @@ import express from "express";
 
 const router = express.Router();
 
-router.post("/contact", createContactQuery);  
+router.post("/contact", createContactQuery);    // https://codechef-bk.onrender.com/api/contact
 
-router.get("/", getallContactQ);
+router.get("/", getallContactQ);     //https://codechef-bk.onrender.com/api/
 
 
 export default router;
