@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './ContactUs.css';
 
 const ContactUs = () => {
@@ -16,17 +18,49 @@ const ContactUs = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your logic for handling form submission (e.g., sending data to the server)
-    console.log('Form submitted:', formData);
-    // You may want to reset the form after submission
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
-    });
+    try{
+      const response = await fetch('http://localhost:7007/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+        });
+
+        if(response.ok){
+          const data = await response.json();
+          //console.log(response);
+          toast.success(data.message, {
+            position: toast.POSITION.TOP_CENTER,
+            style: {
+              width: '400px', 
+            },
+          });
+
+          setFormData({
+            name: '',
+            email: '',
+            subject: '',
+            message: '',
+          });
+    
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 10000);
+        } else {
+          toast.error('Oops! Something went wrong. Please try again.', {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          console.error('Oops! Something went wrong.');
+        }
+    } catch (error) {
+      toast.error('Oops! Something went wrong. Please try again.', {
+        position: toast.POSITION.TOP_CENTER,
+      });
+        console.error('Error:', error);
+      } 
   };
 
   return (
@@ -94,6 +128,7 @@ const ContactUs = () => {
           <button type="submit" className="submit-button">Submit</button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
