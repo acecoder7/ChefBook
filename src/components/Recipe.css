@@ -1,0 +1,31 @@
+.card-title{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FFFFEC;
+}
+
+.tablerow{
+    color: #F1E4C3;
+    font-size: 0.87rem;
+}
+
+.tablerow-comp{
+    font-size: 1rem;
+}
+
+.morebtn{
+    color: #FFB534;
+    font-size: 7px;
+    border: 1px solid #FFB534;
+    margin: 2px 5px;
+}
+
+.inged-title{
+    color: #F1E4C3;
+    font-size: 1.1rem;
+}
+
+.inged-comp{
+    color: #F1E4C3;
+    font-size: 0.87rem;
+}

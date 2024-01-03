@@ -1,0 +1,103 @@
+.filter-modal {
+  display: none;
+  flex-wrap: wrap;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-content {
+  border: #f6dc81 2px solid;
+}
+
+
+.filter-modal.open {
+  display: flex;
+}
+
+.filter-section {
+  flex: 1 1 45%; 
+  margin: 10px ;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.checkbox-container label {
+  margin-right: 15px;
+}
+
+.filter-modal h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.filter-modal label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.filter-modal input {
+  margin-right: 8px;
+}
+
+.filter-modal button {
+  background-color: #4caf50;
+  color: #f7eabe;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.filter-modal button:hover {
+  background-color: #45a049;
+  color: #f9f9f9;
+}
+
+.modal-close-btn {
+    background: #ccc;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.separator {
+  width: 80%;
+  border-top: 2px solid #cba725;
+  margin: 10px auto;
+}

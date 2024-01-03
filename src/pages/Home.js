@@ -2,47 +2,68 @@ import { useEffect, useState } from "react";
 import Recipe from "../components/Recipe";
 import Navbar from "../components/Navbar";
 import mainLogo from "../components/icon.png";
+import FilterModal from "../components/FilterModal";
 import "../App.css";
 
 export default function Home() {
-    const [visible, setVisible] = useState(3);
+  const [visible, setVisible] = useState(3);
+  const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("bread");
+  const [mode, setMode] = useState("light");
+  const [filterModalOpen, setFilterModalOpen] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState({});
 
   const showMoreItems = () => {
     setVisible((prevValue) => prevValue + 3);
   };
+
   const APP_ID = "d7811cd0";
   const APP_KEY = "3baec572c48af715772e8deac52d7572";
 
   const getRecipes = () => {
-    fetch(
-      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
-    )
-      .then((response) => {
-        return response.json();
-      })
+    let apiUrl = `https://api.edamam.com/api/recipes/v2?app_id=${APP_ID}&app_key=${APP_KEY}&type=public&q=${query}`;
+
+    //console.log("selectedFilters: ", selectedFilters);
+    // Check if there are selected filters
+    if (Object.keys(selectedFilters).length > 0) {
+      const queryString = Object.entries(selectedFilters)
+        .map(([key, values]) => {
+          if (Array.isArray(values)) {
+            return values.map((value) => `${key}=${value}`).join("&");
+          } else {
+            return `${key}=${values}`;
+          }
+        })
+        .join("&");
+  
+      apiUrl = `${apiUrl}&${queryString}`;
+    }
+
+    //console.log("apiUrl: ", apiUrl);
+  
+    fetch(apiUrl)
+      .then((response) => response.json())
       .then((data) => {
         setRecipes(data.hits);
-        //console.log(data);
       });
   };
-
-  const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("bread");
+  
 
   useEffect(() => {
     getRecipes();
-  }, [query]);
+  }, [query, selectedFilters]);
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
+
   const getSearch = (e) => {
     e.preventDefault();
     setQuery(search);
+    setSelectedFilters({});
   };
 
-  const [mode, setMode] = useState("light");
   const [myStyle, setStyle] = useState({
     color: "rgb(242, 198, 140)",
   });
@@ -61,46 +82,32 @@ export default function Home() {
     
   })*/
   const toggleMode = () => {
-    if (mode === "light") {
-      setMode("dark");
-      document.querySelector(".App").style.backgroundImage =
-        "radial-gradient(black,black,black)";
+    const isLightMode = mode === "light";
 
-      setStyle({
-        color: "white",
-      });
-      setCard({
-        display: "inline-block",
-        width: 300,
-        marginLeft: 100,
-        marginTop: 5,
-        marginRight: 5,
-        backgroundColor: "black",
-      });
-    } else {
-      setMode("light");
-      document.querySelector(".App").style.backgroundImage =
-        "linear-gradient(to right, #aa8b56 0%, #f0ebce 100%)";
+    setMode(isLightMode ? "dark" : "light");
 
-      setStyle({
-        color: "black",
-      });
-      setCard({
-        display: "inline-block",
-        /* borderWidth:2,
-         borderStyle:"solid",*/
-        backgroundColor: "#4e6c50",
-        width: 300,
-        marginLeft: 100,
-        marginTop: 5,
-        marginRight: 5,
-      });
-    }
-    };
+    document.querySelector(".App").style.backgroundImage = isLightMode
+      ? "radial-gradient(black,black,black)"
+      : "linear-gradient(to right, #aa8b56 0%, #f0ebce 100%)";
+  };
+  
+  const openFilterModal = () => {
+    setFilterModalOpen(true);
+  };
+
+  const closeFilterModal = () => {
+    setFilterModalOpen(false);
+  };
+
+  const applyFilters = (filters) => {
+    setSelectedFilters(filters);
+    setFilterModalOpen(false);
+  };
     
 
     return (
-        <>
+      <>
+          <div className={`App ${mode === "light" ? "light-mode" : "dark-mode"}`}>
         <Navbar />
           <img
             alt=""
@@ -129,11 +136,16 @@ export default function Home() {
             <button className="search-btn" type="submit">
               Search
             </button>
-          </form>
+            <button className="filter-btn" onClick={openFilterModal}>
+               Filter
+            </button>
+            </form>
+            
+            <FilterModal isOpen={filterModalOpen} onClose={closeFilterModal} onFilterApply={applyFilters} />
 
           <div class="form-check form-switch">
             <input
-              class="form-check-input ms-5"
+              className="form-check-input ms-5"
               type="checkbox"
               role="switch"
               id="flexSwitchCheckDefault"
@@ -146,9 +158,16 @@ export default function Home() {
                 key={r.recipe.url}
                 title={r.recipe.label}
                 calories={r.recipe.calories}
-                img={r.recipe.image}
+                img={r.recipe.images.REGULAR.url}
                 url={r.recipe.url}
                 ingredients={r.recipe.ingredients}
+                diet={r.recipe.dietLabels}
+                health={r.recipe.healthLabels}
+                cuisineType={r.recipe.cuisineType}
+                mealType={r.recipe.mealType}
+                dishType={r.recipe.dishType}
+                time={r.recipe.totalTime}
+                tags={r.recipe.tags}
                 myStyle={myStyle}
                 cardStyle={cardStyle}
               />
@@ -159,6 +178,7 @@ export default function Home() {
               Load More Recipes
             </button>
             </div>
+          </div>
         </>
     )
 }

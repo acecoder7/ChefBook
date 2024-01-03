@@ -1,0 +1,116 @@
+
+.contact-us-container {
+  display: flex;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.left-section,
+.right-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.right-heading{
+    text-align: center;
+  font-size: 28px; 
+  color: #000000; 
+  margin-bottom: 20px; 
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.left-heading{
+  font-size: 21px;
+  color: #000000; 
+  margin-bottom: 20px;
+  text-transform: uppercase; 
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #86c7c7;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.right-section {
+  margin-left: 20px;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 8px;
+  color:#4caf50;
+  font-weight: bold;
+  width: 100%;
+}
+
+.input {
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #052e70;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+.submit-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+/* Updated Styles for Left Section */
+.left-section h2,
+.left-section p {
+  color: #333;
+}
+
+.left-section p {
+  margin-bottom: 20px;
+}
+
+/* Add responsive styles as needed */
+@media screen and (max-width: 768px) {
+  .contact-us-container {
+    flex-direction: column;
+  }
+
+  .right-section {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}

@@ -1,209 +1,31 @@
 import React, { useState,useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faPlus, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import './Recipe.css';
 
 
 export default function Recipe(props) {
-  const[starStyle1,setStar1]=useState(
-    {  display:"inline-block",
-    width:20,
-    height:20,
-    color:"white",
-    margin:3
+  const [stars, setStars] = useState(Array(5).fill({ color: "white" }));
+  const [showMoreHealth, setShowMoreHealth] = useState(false);
+  const [showMoreTags, setShowMoreTags] = useState(false);
+
+
+  const handleStarClick = (index) => {
+    const updatedStars = stars.map((star, i) => ({
+      color: i <= index ? "yellow" : "white",
+    }));
+    setStars(updatedStars);
+  };
+
+  const handleShowMoreHealth = () => {
+    setShowMoreHealth(!showMoreHealth);
+  };
+
+  const handleShowMoreTags = () => {
+    setShowMoreTags(!showMoreTags);
+  };
   
-    }
-  );
-  const[starStyle2,setStar2]=useState(
-    {  display:"inline-block",
-    width:20,
-    height:20,
-    color:"white",
-    margin:3
   
-    }
-  );
-  const[starStyle3,setStar3]=useState(
-    {  display:"inline-block",
-    width:20,
-    height:20,
-    color:"white",
-    margin:3
-  
-    }
-  );
-  const[starStyle4,setStar4]=useState(
-    {  display:"inline-block",
-    width:20,
-    height:20,
-    color:"white",
-    margin:3
-  
-    }
-  );
-  const[starStyle5,setStar5]=useState(
-    {  display:"inline-block",
-    width:20,
-    height:20,
-    color:"white",
-    margin:3
-  
-    }
-  );
-  function StarClicked(e)
-  {var target=parseInt(e.currentTarget.id);
-    console.log(target);
-    if(target===1)
-    {
-      setStar1(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-    }
-    if(e.currentTarget.id==="2")
-    {
-      setStar1(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      );
-      setStar2(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-    }
-    if(e.currentTarget.id==="3")
-    {
-      setStar1(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar2(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar3(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-    }
-    if(e.currentTarget.id==="4")
-    {
-      setStar1(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar2(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar3(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar4(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-    }
-    if(e.currentTarget.id==="5")
-    {
-      setStar1(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar2(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar3(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar4(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-      setStar5(
-        {
-          display:"inline-block",
-          width:20,
-          height:20,
-          color:"yellow",
-          margin:3
-        }
-      )
-    }
-  
-  }
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -228,25 +50,91 @@ export default function Recipe(props) {
 
   return (
     <>
-     <div className={`scroll-up-btn ${showScrollButton ? "show" : ""}`} onClick={scrollToTop}>
+      <div className={`scroll-up-btn ${showScrollButton ? "show" : ""}`} onClick={scrollToTop}>
      <FontAwesomeIcon icon={faArrowUp} className="scroll-top-icon" onClick={scrollToTop} />
-        </div>
-      <div className="card my-4 mx-3" style={props.cardStyle}>
+      </div>
+      <div className="card my-4 mx-3" style={{ ...props.cardStyle, width: "350px" }}>
         <img
           src={props.img}
-          style={props.imageStyle}
+          style={{ ...props.imageStyle, height: "227px", objectFit: "cover" }}
           className="card-img-top"
+          alt={props.title}
         />
         <div className="card-body">
-          <h5 className="card-title" style={props.myStyle}>
+          <div style={{ height: "70px" }} >
+            <h5 className="card-title">
             {props.title}
-          </h5>
-          <p className="card-text" style={props.myStyle}>
-            Calories - {props.calories}
-          </p>
-          <ol>
-            {props.ingredients.map((i) => (
-              <li style={props.myStyle}>{i.text}</li>
+            </h5>
+          </div>
+
+          <div className="table-responsive">
+            <table className="table table-bordered">
+              <tbody>
+                <tr className="tablerow" >
+                  <td className="tablerow-comp">Calories</td>
+                  <td>{Math.floor(props.calories) || "NA"}</td>
+                </tr>
+                <tr className="tablerow">
+                  <td className="tablerow-comp">Diet</td>
+                  <td>{props.diet && props.diet.length > 0 ? props.diet.slice(0, 3).join(", ") : "NA"}</td>
+                </tr>
+                <tr className="tablerow">
+                  <td className="tablerow-comp">Cuisine Type</td>
+                  <td>{props.cuisineType && props.cuisineType.length > 0 ? props.cuisineType.slice(0, 3).join(", ") : "NA"}</td>
+                </tr>
+                <tr className="tablerow">
+                  <td className="tablerow-comp">Meal Type</td>
+                  <td>{props.mealType && props.mealType.length > 0 ? props.mealType.slice(0, 3).join(", ") : "NA"}</td>
+                </tr>
+                <tr className="tablerow">
+                  <td className="tablerow-comp">Dish Type</td>
+                  <td>{props.dishType && props.dishType.length > 0 ? props.dishType.slice(0, 3).join(", ") : "NA"}</td>
+                </tr>
+                <tr className="tablerow">
+                  <td className="tablerow-comp">Total Time</td>
+                  <td>{props.time > 0 ? `${props.time} minutes` : "NA"}</td>
+                </tr>
+                <tr className="tablerow">
+                  <td className="tablerow-comp">Health Labels</td>
+                  <td>
+                    {props.health && props.health.length > 0 ? (
+                      <>
+                        {showMoreHealth ? props.health.join(", ") : props.health.slice(0, 3).join(", ")}
+                        {props.health.length > 3 && (
+                          <button className="btn btn-link btn-sm morebtn " onClick={handleShowMoreHealth} >
+                            {showMoreHealth ? "Show Less" : <FontAwesomeIcon icon={faPlus} style={{ color: "#FFB534", fontSize: "7px" }}/>}
+                          </button>
+                        )}
+                      </>
+                    ) : "NA"}
+                  </td>
+                </tr>
+                <tr className="tablerow">
+                  <td className="tablerow-comp">Tags</td>
+                  <td>
+                    {props.tags && props.tags.length > 0 ? (
+                      <>
+                        {showMoreTags ? props.tags.join(", ") : props.tags.slice(0, 3).join(", ")}
+                        {props.tags.length > 3 && (
+                          <button className="btn btn-link btn-sm morebtn" onClick={handleShowMoreTags}>
+                            {showMoreTags ? "Show Less" : <FontAwesomeIcon icon={faPlus} style={{ color: "#FFB534", fontSize: "7px" }} />}
+                          </button>
+                        )}
+                      </>
+                    ) : "NA"}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <p className="inged-title">Ingredients</p>
+          <ol className="inged-comp">
+            {props.ingredients.map((ingredient, index) => (
+              <li key={index} style={props.myStyle}>
+                {ingredient.text}
+              </li>
             ))}
           </ol>
           <a
@@ -254,19 +142,23 @@ export default function Recipe(props) {
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary see-recipe-btn"
+            style={{ marginBottom: "10px" }}
           >
             See the recipe
           </a>
-          <div class="stars">
-          <FontAwesomeIcon icon={faStar} class="star" onClick={StarClicked} style={starStyle1} id="1"/>
-          <FontAwesomeIcon icon={faStar} class="star" onClick={StarClicked} style={starStyle2} id="2"/>
-          <FontAwesomeIcon icon={faStar} class="star" onClick={StarClicked} style={starStyle3} id="3"/>
-          <FontAwesomeIcon icon={faStar} class="star" onClick={StarClicked} style={starStyle4} id="4"/>
-          <FontAwesomeIcon icon={faStar} class="star" onClick={StarClicked} style={starStyle5} id="5"/>
-     
+          <div className="stars">
+            {stars.map((star, index) => (
+              <FontAwesomeIcon
+                key={index}
+                icon={faStar}
+                className="star"
+                style={{ ...star, margin: 3 }}
+                onClick={() => handleStarClick(index)}
+              />
+            ))}
           </div>
         </div>
       </div>
     </>
   );
-}
+};
