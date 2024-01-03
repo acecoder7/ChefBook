@@ -66,7 +66,20 @@ export default function Home() {
 
   const [myStyle, setStyle] = useState({
     color: "rgb(242, 198, 140)",
+    
   });
+  const handleMouseEnter = () => {
+    setStyle({
+      ...myStyle,
+      color: "rgb(252 149 14)",
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setStyle({
+      color: "rgb(242, 198, 140)",
+    });
+  };
   const [cardStyle, setCard] = useState({
     display: "inline-block",
     width: 300,
@@ -117,7 +130,8 @@ export default function Home() {
             className="logo"
             text-align="center"
           />
-          <h1 className="heading" style={myStyle}>
+          <h1 className="heading" style={myStyle} onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
             Tasty Tips
           </h1>
           <form onSubmit={getSearch} className="search-form">
