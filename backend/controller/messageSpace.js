@@ -11,7 +11,7 @@ export const getMessages = async (req, res) => {
     const now = new Date();
     switch (filter) {
       case "last24hours":
-        dateRange = { $gte: new Date(now - 24 * 60 * 60 * 1000) }; // Last 24 hours
+        dateRange = { $gte: new Date(now - 1 * 60 * 60 * 1000) }; // Last 24 hours
         break;
       case "lastWeek":
         dateRange = { $gte: new Date(now - 7 * 24 * 60 * 60 * 1000) }; // Last week
@@ -49,6 +49,7 @@ export const createMessage = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 export const addReaction = async (req, res) => {
   try {

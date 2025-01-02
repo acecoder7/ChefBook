@@ -5,7 +5,7 @@ import ErrorMiddleware from "./middleware/error.js";
 
 //routes
 import contact from "./routers/contact.js";
-import message  from "./models/messageSpace.js";
+import message  from "./routers/messageSpace.js";
 
 const app = express();
 
