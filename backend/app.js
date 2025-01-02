@@ -5,6 +5,7 @@ import ErrorMiddleware from "./middleware/error.js";
 
 //routes
 import contact from "./routers/contact.js";
+import message  from "./models/messageSpace.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 
 app.use("/api", contact);
+app.use("/api/message", message);
 
 
 // Custom Error Middleware
