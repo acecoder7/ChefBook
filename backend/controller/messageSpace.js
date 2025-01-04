@@ -11,7 +11,7 @@ export const getMessages = async (req, res) => {
     const now = new Date();
     switch (filter) {
       case "last24hours":
-        dateRange = { $gte: new Date(now - 1 * 60 * 60 * 1000) }; // Last 24 hours
+        dateRange = { $gte: new Date(now - 24 * 60 * 60 * 1000) }; // Last 24 hours
         break;
       case "lastWeek":
         dateRange = { $gte: new Date(now - 7 * 24 * 60 * 60 * 1000) }; // Last week
@@ -23,7 +23,7 @@ export const getMessages = async (req, res) => {
         dateRange = { $gte: new Date(now.setFullYear(now.getFullYear() - 1)) }; // Last year
         break;
       default:
-        break; // No filtering by time
+        break; 
     }
 
     // Fetch messages based on the filter and isDeleted flag
