@@ -42,13 +42,25 @@ export const getMessages = async (req, res) => {
 
 export const createMessage = async (req, res) => {
   try {
-    const message = new Message(req.body);
+    const currentTime = new Date();
+    const formattedTime = `${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
+
+    // Check if the time matches "11:11"
+    const isManifestingTime = formattedTime === "11:11";
+
+    // Create the message with isManifesting set based on the time
+    const message = new Message({
+      ...req.body,
+      isManifesting: isManifestingTime,
+    });
+
     await message.save();
     res.status(201).json(message);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 
 export const addReaction = async (req, res) => {

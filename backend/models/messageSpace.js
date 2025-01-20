@@ -24,6 +24,10 @@ const messageSpaceSchema = new mongoose.Schema(
         type: Boolean,
         default: false,
     },
+    isManifesting: {
+        type: Boolean,
+        default: false,
+    }
   },
   { timestamps: true }
 );
