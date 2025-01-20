@@ -1,7 +1,5 @@
 import Message from "../models/messageSpace.js";
 
-
-
 export const getMessages = async (req, res) => {
   try {
     const { filter } = req.query; // Get the filter from query params
@@ -23,7 +21,7 @@ export const getMessages = async (req, res) => {
         dateRange = { $gte: new Date(now.setFullYear(now.getFullYear() - 1)) }; // Last year
         break;
       default:
-        break; 
+        break;
     }
 
     // Fetch messages based on the filter and isDeleted flag
@@ -39,11 +37,16 @@ export const getMessages = async (req, res) => {
   }
 };
 
-
 export const createMessage = async (req, res) => {
   try {
     const currentTime = new Date();
-    const formattedTime = `${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}`;
+    const formattedTime = `${currentTime
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${currentTime
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}`;
 
     // Check if the time matches "11:11"
     const isManifestingTime = formattedTime === "11:11";
@@ -60,8 +63,6 @@ export const createMessage = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
-
-
 
 export const addReaction = async (req, res) => {
   try {
@@ -90,7 +91,7 @@ export const deleteMessage = async (req, res) => {
     const updatedMessage = await Message.findByIdAndUpdate(
       req.params.id,
       { isDeleted: true },
-      { new: true } 
+      { new: true }
     );
 
     if (!updatedMessage) {
