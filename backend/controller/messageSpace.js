@@ -49,7 +49,7 @@ export const createMessage = async (req, res) => {
       .padStart(2, "0")}`;
 
     // Check if the time matches "11:11"
-    const isManifestingTime = formattedTime === "11:11";
+    const isManifestingTime = formattedTime === "11:11" || formattedTime === "23:11";
 
     // Create the message with isManifesting set based on the time
     const message = new Message({
