@@ -39,7 +39,7 @@ export const getMessages = async (req, res) => {
 
 export const createMessage = async (req, res) => {
   try {
-    const currentTime = new Date();
+    const currentTime = new Date("2025-01-25T05:41:35.039+00:00");
     const formattedTime = `${currentTime
       .getHours()
       .toString()
@@ -51,11 +51,17 @@ export const createMessage = async (req, res) => {
     // Check if the time matches "11:11"
     const isManifestingTime = formattedTime === "11:11" || formattedTime === "23:11";
 
+    console.log("isManifestingTime", isManifestingTime);
+    console.log("formattedTime", formattedTime);
+    console.log("currentTime", currentTime);
+
     // Create the message with isManifesting set based on the time
     const message = new Message({
       ...req.body,
       isManifesting: isManifestingTime,
     });
+
+    console.log("message", message);
 
     await message.save();
     res.status(201).json(message);
